@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="main_text_color">#606169</color>
+    <color name="message_icon_color">#5463BD</color>
+    <color name="item_underline_color">#26606169</color>
 </resources>

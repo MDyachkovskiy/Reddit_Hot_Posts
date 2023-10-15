@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="post_title_style">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="star_count_style">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/main_text_color</item>
+    </style>
+
+</resources>
