@@ -1,7 +1,8 @@
-package gb.com.reddit_hot_posts
+package gb.com.reddit_hot_posts.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import gb.com.reddit_hot_posts.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
