@@ -9,7 +9,7 @@ import gb.com.reddit_hot_posts.model.repository.RedditRepository
 import kotlinx.coroutines.flow.Flow
 
 class RedditViewModel(
-    private val repository: RedditRepository
+    repository: RedditRepository
 ) : ViewModel() {
 
     val posts: Flow<PagingData<RedditPost>> = repository.getPostsStream().cachedIn(viewModelScope)

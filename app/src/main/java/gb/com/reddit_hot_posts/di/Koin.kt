@@ -4,6 +4,9 @@ import androidx.room.Room
 import gb.com.reddit_hot_posts.model.datasource.local.RedditDatabase
 import gb.com.reddit_hot_posts.model.datasource.remote.RedditApi
 import gb.com.reddit_hot_posts.model.repository.RedditRepository
+import gb.com.reddit_hot_posts.model.repository.RedditRepositoryImpl
+import gb.com.reddit_hot_posts.view.RedditViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,7 +21,7 @@ val apiModule = module {
 
     single { get<Retrofit>().create(RedditApi::class.java) }
 
-    single { RedditRepository(get()) }
+    single<RedditRepository> { RedditRepositoryImpl(get()) }
 }
 
 val databaseModule = module {
@@ -27,4 +30,8 @@ val databaseModule = module {
     }
 
     single { get<RedditDatabase>().postsDao() }
+}
+
+val appModule = module {
+    viewModel { RedditViewModel(get()) }
 }

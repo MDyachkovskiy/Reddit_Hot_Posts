@@ -1,12 +1,37 @@
 package gb.com.reddit_hot_posts.view
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
-import gb.com.reddit_hot_posts.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import gb.com.reddit_hot_posts.databinding.ActivityMainBinding
+import gb.com.reddit_hot_posts.view.adapter.RedditPostAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: RedditViewModel by viewModel()
+    private lateinit var redditAdapter: RedditPostAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+            .also { setContentView(it.root) }
+
+        redditAdapter = RedditPostAdapter()
+        binding.mainRecyclerView.adapter = redditAdapter
+        binding.mainRecyclerView.layoutManager =
+            LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+
+        lifecycleScope.launch {
+            viewModel.posts.collectLatest { pagingData ->
+                redditAdapter.submitData(pagingData)
+            }
+        }
     }
 }
