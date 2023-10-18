@@ -1,14 +1,24 @@
 package gb.com.reddit_hot_posts.model.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import gb.com.reddit_hot_posts.model.datasource.remote.RedditApi
-import gb.com.reddit_hot_posts.model.datasource.remote.dto.RedditApiResponse
+import gb.com.reddit_hot_posts.model.datasource.remote.dto.RedditPost
+import gb.com.reddit_hot_posts.view.RedditPagingSource
+import kotlinx.coroutines.flow.Flow
 
 class RedditRepository(
     private val reddit: RedditApi
 ) {
 
-    suspend fun fetchTopPosts(after: String?, limit: Int): RedditApiResponse {
-        return reddit.getTopPosts(after, limit)
+    fun getPostsStream(): Flow<PagingData<RedditPost>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {RedditPagingSource(reddit)}
+        ).flow
     }
-
 }
