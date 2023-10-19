@@ -21,7 +21,7 @@ val apiModule = module {
 
     single { get<Retrofit>().create(RedditApi::class.java) }
 
-    single<RedditRepository> { RedditRepositoryImpl(get()) }
+    single<RedditRepository> { RedditRepositoryImpl(get(), get()) }
 }
 
 val databaseModule = module {
