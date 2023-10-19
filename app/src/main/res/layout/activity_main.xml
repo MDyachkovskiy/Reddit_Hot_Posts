@@ -11,4 +11,8 @@
         tools:listitem="@layout/item_reddit_topic"
         />
 
+    <include
+        android:id="@+id/loading_layout"
+        layout="@layout/layout_loading" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

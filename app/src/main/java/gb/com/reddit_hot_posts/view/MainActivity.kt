@@ -2,12 +2,13 @@ package gb.com.reddit_hot_posts.view
 
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import gb.com.reddit_hot_posts.databinding.ActivityMainBinding
+import gb.com.reddit_hot_posts.model.appState.AppState
 import gb.com.reddit_hot_posts.view.adapter.RedditPostAdapter
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,9 +30,21 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
 
         lifecycleScope.launch {
-            viewModel.posts.collectLatest { pagingData ->
-                redditAdapter.submitData(pagingData)
+            viewModel.state.collect { appState ->
+                when(appState) {
+                    is AppState.Loading -> {
+                        binding.loadingLayout.progressBar.visibility = View.VISIBLE
+                    }
+                    is AppState.Success -> {
+                        binding.loadingLayout.progressBar.visibility = View.GONE
+                        redditAdapter.submitData(appState.data)
+                    }
+                    is AppState.Error -> {
+                        binding.loadingLayout.progressBar.visibility = View.GONE
+                    }
+                }
             }
         }
+        viewModel.fetchPosts()
     }
 }
