@@ -7,7 +7,7 @@ The Room database is integrated to cache the posts, allowing for offline access.
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://i.ibb.co.com/FWtYRYV/IMG-20231020-134752.jpg" alt="project-screenshot" width="200" height="400/">
+<img src="https://gdurl.com/8hRA" alt="project-screenshot" width="200" height="400/">
 
 
 <h2>💻 Built with</h2>
